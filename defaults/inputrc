@@ -1,0 +1,42 @@
+#
+# File:         inputrc
+# Author:       Markus Hoofe <mhoofe@gmail.com>
+#
+# Description:  Custom input settings
+#
+
+# include system-wide settings
+$include /etc/inputrc
+
+# turn off bell
+set bell-style none
+
+# misc settings
+set completion-ignore-case on
+set mark-symlinked-directories on
+set visible-stats on
+
+# default keybindings
+"\e[1~":    beginning-of-line
+"\e[2~":    overwrite-mode
+"\e[3~":    delete-char
+"\e[4~":    end-of-line
+"\e[5~":    history-search-backward
+"\e[6~":    history-search-forward
+
+"\eOC":     forward-word
+"\e[1;5C":  forward-word
+"\eOD":     backward-word
+"\e[1;5D":  backward-word
+
+"\e[1;5A":  unix-filename-rubout
+"\e[1;5B":  yank
+
+"\e[1;6A":  copy-region-as-kill
+"\e[1;6B":  yank-pop
+"\e[1;6C":  copy-forward-word
+"\e[1;6D":  copy-backward-word
+
+# Set default filename completion to Shift-Tab
+"\e[Z":     complete-filename
+
