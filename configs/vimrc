@@ -5,10 +5,7 @@
 " Description:  Custom vim settings
 "
 
-" no compatibility whatsoever!
-set nocompatible
-
-" need to set delete key correctly
+" set delete key correctly
 if $TERM >= "xterm" || $TERM == "kvt" || $TERM == "dtterm"
 
     set t_md=
