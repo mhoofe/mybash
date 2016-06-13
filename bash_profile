@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!bash
 
 #echo "START MYBASH 'bash_profile'"
 

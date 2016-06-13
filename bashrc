@@ -1,11 +1,14 @@
-#!/usr/bin/bash
+#!bash
 
 #echo "START MYBASH 'bashrc'"
 
 # Ignore 'bashrc' for non-interactive shells
 case $- in
-    *i*) ;;
-      *) return;;
+    *i*)
+        ;;
+      *)
+        return
+        ;;
 esac
 
 if [[ -n "$MYBASH_HOME" ]]; then
