@@ -14,7 +14,7 @@ export HISTSIZE=2000
 
 # Set customized colors
 if [[ -n "$(type -p dircolors)" ]]; then
-    for i in "$HOME/.dir_colors" "$MYBASH_HOME/defaults/dir_colors"; do
+    for i in "$HOME/.dir_colors" "$MYBASH_HOME/configs/dir_colors"; do
         if [[ -s "$i" ]]; then
             eval "$(dircolors "$i")"
             break
@@ -24,13 +24,13 @@ if [[ -n "$(type -p dircolors)" ]]; then
 fi
 
 # Set customized inputrc
-for i in "$HOME/.inputrc" "$MYBASH_HOME/defaults/inputrc"; do
+for i in "$HOME/.inputrc" "$MYBASH_HOME/configs/inputrc"; do
     [[ -s "$i" ]] && export INPUTRC="$i" && break
 done
 unset i
 
 # Set customized vimrc
-for i in "$HOME/.vimrc" "$MYBASH_HOME/defaults/vimrc"; do
+for i in "$HOME/.vimrc" "$MYBASH_HOME/configs/vimrc"; do
     [[ -s "$i" ]] && export VIMRC="$i" && break
 done
 unset i

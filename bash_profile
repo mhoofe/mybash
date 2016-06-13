@@ -2,29 +2,40 @@
 
 #echo "START USER PROFILE"
 
-# Ensure, 'for' loops correctly over files
-IFS="
-"
-
-# Source MYBASH profile scripts
+# Set MyBash Home
 script_link="$(readlink "$BASH_SOURCE")" || script_link="$BASH_SOURCE"
-export MYBASH_HOME="${script_link%/*}"
+script_dir="${script_link%/*}"
+script_home="$(command cd -P "$script_dir")"
 
-[[ -s "$MYBASH_HOME/functions/mybash.bash" ]] && source "$MYBASH_HOME/functions/mybash.bash"
+if [[ -s "$script_home/functions/mybash.bash" ]]; then
+    export MYBASH_HOME="$script_home"
+    source "$MYBASH_HOME/functions/mybash.bash"
+else
+    echo "Could not find 'mybash.bash' in '$script_home'!"
+    echo "MyBash not correctly installed!"
+fi
 
-for script in "$MYBASH_HOME/profile.d/"*; do
-    [[ -s "$script" ]] && source "$script"
-done
-unset script
+unset script_link
+unset script_dir
+unset script_home
 
-# Source user's custom profile
-for i in "$HOME/.my.bash_profile" "$HOME/.my.profile"; do
-    if [[ -s "$i" ]]; then
-        source "$i"
-        break
-    fi
-done
-unset i
+if [[ -n "$MYBASH_HOME" ]]; then
+
+    for script in "$MYBASH_HOME/profile.d/"*; do
+        [[ -s "$script" ]] && source "$script"
+    done
+    unset script
+
+    # Source user's custom profile
+    for i in "$HOME/.my.bash_profile" "$HOME/.my.profile"; do
+        if [[ -s "$i" ]]; then
+            source "$i"
+            break
+        fi
+    done
+    unset i
+
+fi
 
 # Source bashrc
 if [ "${BASH-no}" != "no" ]; then
