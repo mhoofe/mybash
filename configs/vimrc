@@ -5,6 +5,11 @@
 " Description:  Custom vim settings
 "
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tweak terminal settings
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " set delete key correctly
 if $TERM >= "xterm" || $TERM == "kvt" || $TERM == "dtterm"
 
@@ -53,9 +58,8 @@ endif
 "set notbi
 "set term=$TERM
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Now some more or less useful options:
+" Now for some more or less useful settings:
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -75,11 +79,20 @@ set cindent
 " set cinoptions=g.5sh.5s:.5st0(0
 set cinoptions=t0(0
 
+" use the system's clipboard for yank, put and delete and selections
+set clipboard=autoselect,unnamed
+
 " ring the bell for error messages
 set errorbells
 
 " disable function keys in insert/replace mode
 " set noesckeys
+
+" expand tabs to spaces
+set expandtab
+
+" disable blinking cursor in graphical mode
+set guicursor=a:blinkon0
 
 " set modified files hidden when switching to other file(s)
 "set hidden
@@ -104,6 +117,9 @@ set laststatus=2
 
 " dont redraw screen for macros, registers and commands
 set lazyredraw
+
+" turn on mouse movement
+set mouse=nvi
 
 " show linenumbers (see mapping)
 "set number
@@ -153,14 +169,11 @@ set smarttab
 " number of spaces that <Tab> counts for, using a mix of tabs and spaces
 set softtabstop=4
 
-" expand tabs to spaces
-set expandtab
+" dont move the cursor to start of line when indenting with ´<<´, CTRL-T, etc.
+set nostartofline
 
 " set number of spaces a tab counts for
 set tabstop=4
-
-" dont move the cursor to start of line when indenting with ´<<´, CTRL-T, etc.
-set nostartofline
 
 " show program title and filename in window title
 set title
@@ -183,7 +196,6 @@ set whichwrap=b,s
 " set wrapping off (see mapping)
 "set nowrap
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for some more or less useful autocommands:
 "
@@ -194,7 +206,10 @@ autocmd BufReadPre  *.gz set bin
 autocmd BufReadPost *.gz '[,']!gunzip
 autocmd BufReadPost *.gz set nobin
 
-" we want linenumbers for C, C++ and java
+" automatically set different indentation for Ruby, Rakefile and Shell
+autocmd BufRead,BufNewFile *.rb,*.sh,Rakefile set softtabstop=2 shiftwidth=2
+
+" automatically enable linenumbers for C, C++ and java
 "autocmd BufEnter    *.[ch]  set number
 "autocmd BufEnter    *.[CH]  set number
 "autocmd BufEnter    *.cc    set number
@@ -202,26 +217,43 @@ autocmd BufReadPost *.gz set nobin
 "autocmd BufEnter    *.cpp   set number
 "autocmd BufEnter    *.java  set number
 
+" automatically strip trailing whitespaces
+function StripTrailingWhitespaces()
+    let l:winview = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:winview)
+endfunction
+autocmd BufWritePre * :call StripTrailingWhitespaces()
+
+" automatically jump to the last known cursor position
+function LastCursorPosition()
+    if line("'\"") > 1 && line("'\"") <= line("$")
+        exe "normal! g`\""
+    endif
+endfunction
+autocmd BufReadPost * :call LastCursorPosition()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now some more or less useful mappings:
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" make  work in insert mode
-imap  
+" make Ctrl-^ work in insert mode
+imap <C-^> <C-O><C-^>
 
-" map Meta-Pos1 to jump to beginning of line, Pos1 to jump to first character in line
+< " map Home to jump to first character in line, Ctrl-Home to jump to beginning of line
 map <Home> ^
 map <kHome> ^
-imap <Home> ^
-imap <kHome> ^
+imap <Home> <C-O>^
+imap <kHome> <C-O>^
+map <C-Home> 0
 map <Esc><Home> 0
-imap <Esc><Home> 0
+imap <C-Home> <C-O>0
+imap <Esc><Home> <C-O>0
 
 " to satisfy stupid SuSE
-map <Esc>[H ^
-imap <Esc>[H ^
+"map <Esc>[H ^
+"imap <Esc>[H ^
 
 " map Meta-Pageup to jump to beginning of file, Meta-PageDown to jump to end
 map <Esc>< gg
@@ -243,23 +275,34 @@ map <BS> X
 "imap <Esc>F w
 "imap <Esc>b B
 "imap <Esc>B b
+map <C-Right> w
+imap <C-Right> <C-O>w
+map <S-C-Right> W
+imap <S-C-Right> <C-O>W
+map <C-Left> b
+imap <C-Left> <C-O>b
+map <S-C-Left> B
+imap <S-C-Left> <C-O>B
 
 " map ALT-1 to CTRL-^ (so i can "do it" under windows)
 "map <Esc>1 
 "imap <Esc>1 
 
+" map F1 to open selected help for a tag, F3 to jump back
+map <F1> <C-]>
+map <F3> <C-T>
+
 " map F5 to toggle wrapping
 map <F5> :set wrap!<Bar>echo "Wrapping is " strpart("OffOn", 3 * &wrap, 3)<CR>
 
 " map F7 to toggle search highlighting
-map <F7> :set hls!<Bar>echo "HLsearching is " strpart("OffOn", 3 * &hls, 3)<CR>
+map <F7> :set hlsearch!<Bar>echo "HLsearching is " strpart("OffOn", 3 * &hlsearch, 3)<CR>
 
 " map F9 to toggle linenumbering
 map <F9> :set number!<CR>
 
-" map F10 to toggle syntax highlighting
-map <F10> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>syntax on<Bar>endif<CR>
-
+" map F11 to toggle syntax highlighting
+map <F11> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>call SyntaxOn()<Bar>endif<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for the syntax highlighting (tm):
@@ -267,31 +310,38 @@ map <F10> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>syntax on<Bar>endi
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " turn on syntax highlighting
-syntax on
+function SyntaxOn()
+    syntax on
 
-hi Cursor ctermfg=Black ctermbg=Red
+    hi Cursor ctermfg=Black ctermbg=Red
 
-hi Comment ctermfg=DarkRed guifg=DarkRed
+    hi Comment ctermfg=DarkRed guifg=DarkRed
 
-hi Constant ctermfg=DarkMagenta guifg=DarkMagenta
-hi Character ctermfg=DarkGreen guifg=DarkGreen
-hi String ctermfg=DarkGreen guifg=DarkGreen
+    hi Constant ctermfg=DarkMagenta guifg=DarkMagenta
+    hi Character ctermfg=DarkGreen guifg=DarkGreen
+    hi String ctermfg=DarkGreen guifg=DarkGreen
 
-hi Identifier ctermfg=Yellow
-"hi Function ctermfg=Brown
+    hi Identifier ctermfg=Yellow
+    hi Function ctermfg=Brown
 
-hi Statement ctermfg=DarkBlue guifg=DarkBlue
-hi Keyword ctermfg=DarkBlue guifg=DarkBlue
+    hi Statement ctermfg=DarkBlue guifg=DarkBlue
+    hi Keyword ctermfg=DarkBlue guifg=DarkBlue
 
-"hi PreProc cterm=italic
+    "hi PreProc cterm=italic
+    hi PreProc ctermfg=Cyan
 
-hi Type ctermfg=Blue guifg=DarkBlue
-hi Special ctermfg=DarkMagenta guifg=DarkMagenta
+    hi Type ctermfg=Blue guifg=DarkBlue
+    hi Special ctermfg=DarkMagenta guifg=DarkMagenta
 
-hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
+    hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
 
-hi Search term=reverse ctermbg=3
+    hi Search term=reverse ctermbg=3
 
+    hi ShowTrailingWhitespaces ctermbg=red guibg=red
+    match ShowTrailingWhitespaces /\s\+$/
+
+endfunction
+call SyntaxOn()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional stuff
