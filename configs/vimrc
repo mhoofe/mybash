@@ -1,12 +1,9 @@
 "
-" File:         /etc/custom/vimrc
+" File:         vimrc
 " Author:       Markus Hoofe <mhoofe@gmail.com>
 "
 " Description:  Custom vim settings
 "
-
-" include system-wide settings
-so /etc/vimrc 
 
 " no compatibility whatsoever!
 set nocompatible

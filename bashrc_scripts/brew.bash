@@ -13,7 +13,7 @@ done
 unset gnu_path
 
 # Add brew bash completions
-[[ -s "${brew_prefix}/etc/bash_completion" ]] && source "${brew_prefix}/etc/bash_completion"
+sourceScript "${brew_prefix}/etc/bash_completion"
 
 # Disable broken 'cd' completion concerning spaces in filenames
 complete -o nospace -d cd

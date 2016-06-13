@@ -6,9 +6,6 @@
 # Description:  Set of functions to set JAVA related variables
 #
 
-# Check if the needed function is already loaded
-[[ "$(type -t appendPath)" != "function" ]] && source "$MYBASH_HOME/scripts/profile_functions"
-
 # Function to set java paths
 setjava() {
 

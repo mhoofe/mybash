@@ -1,1 +1,0 @@
-../scripts/aliases.bash

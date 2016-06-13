@@ -1,24 +1,36 @@
 #!/usr/bin/bash
 
-#echo "START USER BASHRC"
+#echo "START MYBASH 'bashrc'"
 
-# Ensure, 'for' loops correctly over files
-IFS="
-"
+# Ignore 'bashrc' for non-interactive shells
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# Source MYBASH bashrc scripts
-script_link="$(readlink "$BASH_SOURCE")" || script_link="$BASH_SOURCE"
-export MYBASH_HOME="$(dirname "$PWD/$script_link")"
+if [[ -n "$MYBASH_HOME" ]]; then
 
-[[ -s "$MYBASH_HOME/functions/mybash.bash" ]] && source "$MYBASH_HOME/functions/mybash.bash"
+    # Load mybash functions
+    if [[ "$mybash_loaded" -eq 0 ]]; then
+        source "$MYBASH_HOME/function_scripts/mybash.bash"
+    fi
+    if [[ "$mybash_loaded" -eq 0 ]]; then
+        echo "Script 'mybash.bash' could not be loaded!"
+        echo "MyBash not correctly installed!"
+        return
+    fi
 
-for script in "$MYBASH_HOME/bashrc.d/"*; do
-    [[ -s "$script" ]] && source "$script"
-done
-unset script
+    # Load mybash configuration
+    eval "$(cat "$MYBASH_HOME/mybashrc")"
+    [[ -s "$HOME/.mybashrc" ]] && eval "$(cat "$HOME/mybashrc")"
 
-# Add user's bashrc
-[[ -s "$HOME/.my.bashrc" ]] && source "$HOME/.my.bashrc"
+    # Source defined 'bash' scripts
+    sourceMyBashScripts 'bashrc' "$MYBASH_BASHRC"
 
-#echo "END USER BASHRC"
+    # Source additional custom bashrc script
+    sourceScript "$HOME/.my.bashrc"
+
+fi
+
+#echo "END MYBASH 'bash_profile'"
 

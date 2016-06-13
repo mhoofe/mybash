@@ -1,1 +1,0 @@
-../scripts/misc.sh

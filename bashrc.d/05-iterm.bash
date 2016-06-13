@@ -1,1 +1,0 @@
-../scripts/iterm.bash

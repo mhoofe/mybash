@@ -1,1 +1,0 @@
-../scripts/gcloud.bash
