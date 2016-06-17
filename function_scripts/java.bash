@@ -1,10 +1,4 @@
-#!/bin/bash
-#
-# File:         java_functions
-# Author:       Markus Hoofe <mhoofe@gmail.com>
-#
-# Description:  Set of functions to set JAVA related variables
-#
+#!bash
 
 # Function to set java paths
 setjava() {
