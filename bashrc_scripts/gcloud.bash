@@ -14,3 +14,8 @@ sourceScript "${CLOUDSDK_HOME}/path.bash.inc"
 # Add Google Cloud SDK bash completions
 sourceScript "${CLOUDSDK_HOME}/completion.bash.inc"
 
+# Add shell completion to kubectl, if available
+if [[ "$(type -p kubectl)" == "${CLOUDSDK_HOME}/bin/kubectl" ]]; then
+    source <(kubectl completion bash)
+fi
+
