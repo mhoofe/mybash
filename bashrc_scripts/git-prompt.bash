@@ -9,6 +9,9 @@ if gitprompt_home="$(findFirstDir "$HOME/opt/bash-git-prompt" "${prefix}/bash-gi
 fi
 unset gitprompt_home
 
+GIT_PROMPT_THEME_FILE="$(findFirstConfigFile 'git-prompt-colors.sh')"
+export GIT_PROMPT_THEME_FILE
+
 # Check if bash git prompt is installed
 [[ -z "$GITPROMPT_HOME" ]] && return
 
