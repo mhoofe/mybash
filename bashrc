@@ -25,7 +25,7 @@ if [[ -n "$MYBASH_HOME" ]]; then
 
     # Load mybash configuration
     eval "$(cat "$MYBASH_HOME/mybashrc")"
-    [[ -s "$HOME/.mybashrc" ]] && eval "$(cat "$HOME/mybashrc")"
+    [[ -s "$HOME/.mybashrc" ]] && eval "$(cat "$HOME/.mybashrc")"
 
     # Source defined 'bash' scripts
     sourceMyBashScripts 'bashrc' "$MYBASH_BASHRC"
