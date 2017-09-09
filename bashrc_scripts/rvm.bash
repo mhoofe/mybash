@@ -1,10 +1,12 @@
 
-# Add current path to ruby load path
-appendPath RUBYLIB '.'
+# Set vvm home directory
+RVM_DIR="${HOME}/.rvm"
+[[ ! -d "$RVM_DIR" ]] && return
+export RVM_DIR
 
 # Load rvm
-sourceScript "${HOME}/.rvm/scripts/rvm"
+sourceScript "${RVM_DIR}/scripts/rvm"
 
 # Add rvm bash completions
-sourceScript "${HOME}/.rvm/scripts/completion"
+sourceScript "${RVM_DIR}/scripts/completion"
 
