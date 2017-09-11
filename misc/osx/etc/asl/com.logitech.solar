@@ -1,0 +1,3 @@
+# Ignore messages from Logitech's Solar App and Service
+? [CA= Facility com.logitech.solar] claim only
+= enable 0
