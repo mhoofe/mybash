@@ -1,0 +1,36 @@
+
+### Defaults
+
+## Syntax
+
+defaults (read|write) (-g|<Application>) <Setting> -<Type> <Value>
+
+# For boolean:
+defaults (read|write) (-g|<Application>) <Setting> -bool FALSE|TRUE
+
+# For integer:
+defaults (read|write) (-g|<Application>) <Setting> -int 0..999
+
+## Examples
+
+# Turn off "dead" keys
+defaults write -g ApplePressAndHoldEnabled -bool FALSE/TRUE
+
+# Disable "back"/"forward" when swiping
+defaults write -g AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
+# Disable "bouncing" dock icons alert
+defaults write com.apple.dock no-bouncing -bool TRUE
+
+### NVRAM/PRAM/SMC
+
+# Disable/enable startup sound
+
+nvram SystemAudioVolume=%80 # or: SystemAudioVolume=" "
+nvram -d SystemAudioVolume
+
+### Links
+
+# Many examples for defaults
+https://github.com/mathiasbynens/dotfiles/blob/master/.macos
+
