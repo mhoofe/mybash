@@ -5,7 +5,7 @@
 brew_prefix="$(brew --prefix)"
 
 # Prepend gnu paths
-for gnu_path in "gnu-tar" "findutils" "coreutils"; do
+for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar"; do
   bin_path="${brew_prefix}/opt/${gnu_path}/libexec/gnubin"
   man_path="${brew_prefix}/opt/${gnu_path}/libexec/gnuman"
   prependPaths "$bin_path" "$man_path"
