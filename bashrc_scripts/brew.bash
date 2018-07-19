@@ -12,6 +12,9 @@ for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar"; do
 done
 unset gnu_path
 
+# Append qt paths
+appendPath PATH '/usr/local/opt/qt@5.5/bin'
+
 # Add brew bash completions
 sourceScript "${brew_prefix}/etc/bash_completion"
 
