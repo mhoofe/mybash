@@ -237,10 +237,12 @@ prependPaths() {
     if [[ -d "$bin_path" ]]; then
         removePath PATH "$bin_path"
         prependPath PATH "$bin_path"
+        export PATH
     fi
     if [[ -d "$man_path" ]]; then
-        removePath MANPATH "$bin_path"
+        removePath MANPATH "$man_path"
         prependPath MANPATH "$man_path"
+        export MANPATH
     fi
 }
 
@@ -253,10 +255,12 @@ appendPaths() {
     if [[ -d "$bin_path" ]]; then
         removePath PATH "$bin_path"
         appendPath PATH "$bin_path"
+        export PATH
     fi
     if [[ -d "$man_path" ]]; then
-        removePath MANPATH "$bin_path"
+        removePath MANPATH "$man_path"
         appendPath MANPATH "$man_path"
+        export MANPATH
     fi
 }
 
