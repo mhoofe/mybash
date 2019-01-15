@@ -22,6 +22,9 @@ defaults write -g AppleEnableSwipeNavigateWithScrolls -bool FALSE
 # Disable "bouncing" dock icons alert
 defaults write com.apple.dock no-bouncing -bool TRUE
 
+# Disable font smoothing
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
