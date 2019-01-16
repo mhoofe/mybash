@@ -13,7 +13,7 @@ done
 unset gnu_path
 
 # Prepend some brew opt packages
-for opt_path in "curl" "qt@5.5"; do
+for opt_path in "curl" "curl-openssl" "qt@5.5"; do
   bin_path="${brew_prefix}/opt/${opt_path}/bin"
   man_path="${brew_prefix}/opt/${opt_path}/share/man"
   prependPaths "$bin_path" "$man_path"
