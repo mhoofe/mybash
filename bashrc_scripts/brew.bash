@@ -20,6 +20,11 @@ for opt_path in "curl" "curl-openssl" "qt@5.5"; do
 done
 unset opt_path
 
+# Install command-not-found
+if brew command command-not-found-init > /dev/null 2>&1; then
+  eval "$(brew command-not-found-init)"
+fi
+
 # Add brew bash completions
 sourceScript "${brew_prefix}/etc/bash_completion"
 
