@@ -1,3 +1,3 @@
 MYBASH_PROFILE="local home misc"
-MYBASH_BASHRC="brew bashrc prompt gcloud git-prompt iterm jenv nvm rvm aliases"
+MYBASH_BASHRC="brew bashrc prompt gcloud git-prompt iterm jenv pyenv nvm rvm aliases"
 MYBASH_DEBUG=0
