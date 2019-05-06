@@ -40,3 +40,9 @@ alias x-='chmod a-x'
 alias df='df -h'
 alias du='du -h'
 
+mkcdir() {
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+alias mcd='mkcdir'
+
