@@ -19,6 +19,11 @@ sourceMyBashScripts() {
 
     [ $# -ne 2 ] && echo "Usage: sourceMyBashScripts <script_type> <script_names>" && return -1
 
+    if [[ "$MYBASH_LOGFILE" -gt 0 ]]; then
+      local logFile="${HOME}/.mybash-$$.log"
+      exec 4>&2 2>>"${logFile}"
+    fi
+
     local script_type="$1"
     local script_names="$2"
 
@@ -57,6 +62,10 @@ sourceMyBashScripts() {
         fi
 
     done
+
+    if [[ -t 4 ]]; then
+      exec 2>&4
+    fi
 
 }
 
@@ -146,7 +155,14 @@ sourceScript() {
     local script_path="$(findFirstFile "$@")"
     if [[ -n "$script_path" ]]; then
         logMyBash "sourcing script '$script_path'"
-        source "$script_path"
+        if [[ "$MYBASH_TIMINGS" -gt 0 ]]; then
+            local oldTimeformat="${TIMEFORMAT}"
+            TIMEFORMAT=$'MYBASH_TIMINGS: sourcing script '$script_path' took %3lR'
+            time source "$script_path" >&2
+            TIMEFORMAT="${oldTimeformat}"
+        else
+            source "$script_path"
+        fi
         return 0
     fi
 
