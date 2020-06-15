@@ -26,7 +26,8 @@ if brew command command-not-found-init > /dev/null 2>&1; then
 fi
 
 # Add brew bash completions
-sourceScript "${brew_prefix}/etc/bash_completion"
+#sourceScript "${brew_prefix}/etc/bash_completion"
+sourceScript "${brew_prefix}/etc/profile.d/bash_completion.sh"
 
 # Disable broken 'cd' completion concerning spaces in filenames
 complete -o nospace -d cd
