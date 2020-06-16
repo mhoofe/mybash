@@ -25,6 +25,9 @@ defaults write com.apple.dock no-bouncing -bool TRUE
 # Disable font smoothing
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
+# Allow 'Always Open' checkbox for chrome protocol handlers
+defaults write com.google.Chrome ExternalProtocolDialogShowAlwaysOpenCheckbox -bool true
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
