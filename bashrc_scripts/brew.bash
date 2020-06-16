@@ -4,6 +4,9 @@
 
 brew_prefix="$(brew --prefix)"
 
+prependPath PATH "${brew_prefix}/bin"
+prependPath PATH "${brew_prefix}/sbin"
+
 # Prepend gnu paths
 for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar"; do
   bin_path="${brew_prefix}/opt/${gnu_path}/libexec/gnubin"
