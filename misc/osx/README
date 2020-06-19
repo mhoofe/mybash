@@ -14,7 +14,7 @@ defaults (read|write) (-g|<Application>) <Setting> -int 0..999
 ## Examples
 
 # Turn off "dead" keys
-defaults write -g ApplePressAndHoldEnabled -bool FALSE/TRUE
+defaults write -g ApplePressAndHoldEnabled -bool FALSE
 
 # Disable "back"/"forward" when swiping
 defaults write -g AppleEnableSwipeNavigateWithScrolls -bool FALSE
@@ -24,6 +24,9 @@ defaults write com.apple.dock no-bouncing -bool TRUE
 
 # Disable font smoothing
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
+
+# Delay starting to drag&drop text (-1 to disable, 0 to start immediately)
+defaults write -g NSDragAndDropTextDelay -int 1000
 
 # Allow 'Always Open' checkbox for chrome protocol handlers
 defaults write com.google.Chrome ExternalProtocolDialogShowAlwaysOpenCheckbox -bool true
