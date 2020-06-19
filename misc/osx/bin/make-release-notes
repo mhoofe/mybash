@@ -13,7 +13,7 @@ usage() {
 }
 
 base_version="1.5"
-repo_dir="/Users/markushoofe/Development/source/bitbucket.org/lansa/lansa-lax"
+repo_dir="${HOME}/Development/source/bitbucket.org/lansa/lansa-lax"
 
 unset current
 unset previous1
