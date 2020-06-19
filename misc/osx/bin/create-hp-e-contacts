@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+az ad group member list --group "Rheinauhafen" --output tsv \
+    | sort -t $'\t' -k23 \
+    | awk -F $'\t' 'BEGIN { printf "ID,Type,Name,Email Address,Group Members\n" } { printf "%s,Contact,\"%s\",\"%s\",\n", NR, $14, $23 }'

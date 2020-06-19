@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+program="$(basename "$0")"
+usage() {
+  echo -e "Usage: ${program} \n\
+      [-c|--current <current_version>]\n\
+      [-p1|--previous1 <previous1_version>]\n\
+      [-p2|--previous2 <previous2_version>]\n\
+      [-r|--repo <repo_directory>]\n\
+      [-v|--verbose ]\n\
+      <current_version>"
+  exit 1
+}
+
+base_version="1.5"
+repo_dir="/Users/markushoofe/Development/source/bitbucket.org/lansa/lansa-lax"
+
+unset current
+unset previous1
+unset previous2
+unset verbose
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -c|--current)
+      shift
+      current="$1"
+      ;;
+    -p|previous|-p1|--previous1)
+      shift
+      previous1="$1"
+      ;;
+    -p2|--previous2)
+      shift
+      previous2="$1"
+      ;;
+    -r|--repo)
+      shift
+      repo_dir="$1"
+      ;;
+    -v|--verbose)
+      verbose=1
+      ;;
+    -*)
+      usage
+      ;;
+    *)
+      current="$1"
+      ;;
+  esac
+  shift
+done
+
+[[ -z "${current}" ]] && usage
+
+if [[ "$verbose" == 1 ]]; then
+  echo "base_version: $base_version"
+  echo "repo_dir: $repo_dir"
+fi
+
+is_empty() {
+  [ -z "$1" ] 2> /dev/null
+}
+
+is_int() {
+  [ "$1" -gt 0 ] 2> /dev/null
+}
+
+previous_version() {
+
+  local value="$1"
+  local subtract="$2"
+
+  if is_empty "${value}" && is_int "${current}"; then
+    value="$(( ${current} - ${subtract} ))"
+  fi
+  if is_int "${value}"; then
+    value="${base_version}.${value}"
+  fi
+  echo "${value}"
+
+  return
+}
+
+previous1="$(previous_version "$previous1" 1)"
+previous2="$(previous_version "$previous2" 2)"
+
+[[ -z "${previous1}" ]] && usage
+
+if is_int "${current}"; then
+  current="${base_version}.${current}"
+fi
+
+if [[ "$verbose" > 0 ]]; then
+  echo "current: $current"
+  echo "previous1: $previous1"
+  echo "previous2: $previous2"
+fi
+
+out_dir="${HOME}/Temp/new-release-notes-${current}"
+
+current_lax="${out_dir}/LAX-${current}-all"
+previous_lax="${out_dir}/LAX-${previous1}-all"
+cleaned_lax="${out_dir}/LAX-${current}-cleaned"
+
+mkdir -p "${out_dir}"
+
+list_lax() {
+  set -o pipefail
+  local from="$1"
+  local to="$2"
+  local out="$3"
+  cd "${repo_dir}" && \
+    git log "${from}".."${to}" | \
+    grep -o "LAX-...." | sort | uniq > "${out}"
+}
+
+if [[ -n "${previous2}" ]]; then
+  list_lax "${previous2}" "${previous1}" "${previous_lax}"
+fi
+list_lax "${previous1}" "${current}" "${current_lax}"
+
+for i in `cat "${current_lax}"`; do
+  if [[ -r "${previous_lax}" ]]; then
+    grep -q "$i" "${previous_lax}" || echo "$i"
+  else
+    echo "$i"
+  fi
+done > "${cleaned_lax}"
+
+echo "Cleaned logs were written to: ${cleaned_lax}"
+

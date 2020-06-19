@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+pattern="$1"
+file="${2:+"-- ${2}"}"
+
+git rev-list --all | head | (
+    while read revision; do
+        git grep -F --quiet ${pattern} ${revision} ${file} && echo "Revision: ${revision}"
+    done
+)
+

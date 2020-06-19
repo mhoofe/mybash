@@ -1,0 +1,14 @@
+#!/bin/sh
+
+pbpaste \
+    | base64 -d \
+    | openssl pkcs8 -topk8 -inform DER -outform DER -nocrypt \
+    | base64 -w0
+
+# To convert to single line base64 encoded string:
+#   GNU: base64 -w0
+#   BSD: base64 -b0
+#
+# Alternatively:
+#   base64 | tr -d '\n'
+
