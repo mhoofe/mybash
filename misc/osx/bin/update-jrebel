@@ -17,9 +17,12 @@ fi
 
 jrebel_plugin_glob="*/org.zeroturnaround.eclipse.embedder_*/jrebel"
 jrebel_home_link="${jrebel_home}/_jrebel_"
-find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type d -prune \
-    -exec rm -f "${jrebel_home_link}" \; \
-    -exec ln -s {} "${jrebel_home_link}" \;
+target="$(find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type d -print0 | sort -z -r | head -z -n1 | tr '\0' '\n')"
+if [ ! -d "${target}" ]; then
+  echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_home}'"
+fi
+rm -f "${jrebel_home_link}"
+ln -s "${target}" "${jrebel_home_link}"
 
 exit 0
 
