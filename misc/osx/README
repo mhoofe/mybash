@@ -31,6 +31,10 @@ defaults write -g NSDragAndDropTextDelay -int 1000
 # Allow 'Always Open' checkbox for chrome protocol handlers
 defaults write com.google.Chrome ExternalProtocolDialogShowAlwaysOpenCheckbox -bool true
 
+# Enable 'curtain' mode for chrome remote desktop
+# NOTE: Call for current user AND root!
+defaults write com.google.Chrome RemoteAccessHostRequireCurtain -boolean true
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
