@@ -21,6 +21,7 @@ target="$(find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type 
 if [ ! -d "${target}" ]; then
   echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_home}'"
 fi
+echo "Updating jrebel to ${target}"
 rm -f "${jrebel_home_link}"
 ln -s "${target}" "${jrebel_home_link}"
 
