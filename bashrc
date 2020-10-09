@@ -13,6 +13,8 @@ esac
 
 if [[ -n "$MYBASH_HOME" ]]; then
 
+    alias mybash='cd "${MYBASH_HOME}"'
+
     # Load mybash functions
     if [[ "$mybash_loaded" -eq 0 ]]; then
         source "$MYBASH_HOME/function_scripts/mybash.bash"

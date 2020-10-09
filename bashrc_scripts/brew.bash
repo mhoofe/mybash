@@ -5,7 +5,7 @@
 brew_prefix="$(brew --prefix)"
 
 # Prepend gnu paths
-for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar"; do
+for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar" "grep"; do
   bin_path="${brew_prefix}/opt/${gnu_path}/libexec/gnubin"
   man_path="${brew_prefix}/opt/${gnu_path}/libexec/gnuman"
   prependPaths "$bin_path" "$man_path"
@@ -13,7 +13,7 @@ done
 unset gnu_path
 
 # Prepend some brew opt packages
-for opt_path in "curl" "curl-openssl" "qt" "qt@5.5"; do
+for opt_path in "curl" "curl-openssl" "qt"; do
   bin_path="${brew_prefix}/opt/${opt_path}/bin"
   man_path="${brew_prefix}/opt/${opt_path}/share/man"
   prependPaths "$bin_path" "$man_path"
