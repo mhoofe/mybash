@@ -111,7 +111,7 @@ list_lax() {
   local out="$3"
   cd "${repo_dir}" && \
     git log "${from}".."${to}" | \
-    grep -o "LAX-...." | sort | uniq > "${out}"
+    grep -o "\sLAX-...." | sort | uniq > "${out}"
 }
 
 if [[ -n "${previous2}" ]]; then
