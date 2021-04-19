@@ -2,24 +2,30 @@
 
 #echo "START MYBASH 'bash_profile'"
 
-# Set MyBash Home
-script_link="$(readlink "$BASH_SOURCE")" || script_link="$BASH_SOURCE"
-script_dir="${script_link%/*}"
-script_home="$(command cd -P "$script_dir" > /dev/null && pwd -P)"
+[[ -n "$MYBASH_LOADED_BASH_PROFILE" ]] && return
 
-if [[ -s "$script_home/mybashrc" ]]; then
-    export MYBASH_HOME="$script_home"
-else
-    echo "script_link: ${script_link}"
-    echo "script_dir: ${script_dir}"
-    echo "script_home: ${script_home}"
-    echo "Could not find 'mybashrc' in '$script_home'!"
-    echo "MyBash not correctly installed!"
+if [[ -z "$MYBASH_HOME" ]]; then
+
+    # Set MyBash Home
+    script_link="$(readlink "$BASH_SOURCE")" || script_link="$BASH_SOURCE"
+    script_dir="${script_link%/*}"
+    script_home="$(command cd -P "$script_dir" > /dev/null && pwd -P)"
+
+    if [[ -s "$script_home/mybashrc" ]]; then
+        export MYBASH_HOME="$script_home"
+    else
+        echo "script_link: ${script_link}"
+        echo "script_dir: ${script_dir}"
+        echo "script_home: ${script_home}"
+        echo "Could not find 'mybashrc' in '$script_home'!"
+        echo "MyBash not correctly installed!"
+    fi
+
+    unset script_link
+    unset script_dir
+    unset script_home
+
 fi
-
-unset script_link
-unset script_dir
-unset script_home
 
 if [[ -n "$MYBASH_HOME" ]]; then
 
@@ -51,6 +57,9 @@ elif [[ -s "$HOME/.bashrc" ]]; then
 elif [[ -s "/etc/bashrc" ]]; then
     source "/etc/bashrc"
 fi
+
+MYBASH_LOADED_BASH_PROFILE=1
+export MYBASH_LOADED_BASH_PROFILE
 
 #echo "END MYBASH 'bash_profile'"
 

@@ -2,6 +2,12 @@
 
 #echo "START MYBASH 'bashrc'"
 
+[[ -n "$MYBASH_LOADED_BASHRC" ]] && return
+
+if [[ -z "$MYBASH_HOME" ]] && [[ -s "$HOME/.mybash_profile" ]]; then
+    source "$HOME/.mybash_profile"
+fi
+
 # Ignore 'bashrc' for non-interactive shells
 case $- in
     *i*)
@@ -37,5 +43,8 @@ if [[ -n "$MYBASH_HOME" ]]; then
 
 fi
 
-#echo "END MYBASH 'bash_profile'"
+MYBASH_LOADED_BASHRC=1
+export MYBASH_LOADED_BASHRC
+
+#echo "END MYBASH 'bashrc'"
 
