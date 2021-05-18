@@ -77,7 +77,8 @@ set cindent
 
 " some nice cryptic settings about c-indenting
 " set cinoptions=g.5sh.5s:.5st0(0
-set cinoptions=t0(0
+"set cinoptions=t0(0
+"set cinoptions+=L0
 
 " use the system's clipboard for yank, put and delete and selections
 set clipboard=autoselect,unnamed
@@ -346,4 +347,12 @@ call SyntaxOn()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Additional stuff
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+    call plug#begin('~/.vim/plug')
+
+        Plug 'vim-ruby/vim-ruby'
+
+    call plug#end()
+endif
 
