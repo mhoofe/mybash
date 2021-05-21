@@ -242,15 +242,17 @@ autocmd BufReadPost * :call LastCursorPosition()
 " make Ctrl-^ work in insert mode
 imap <C-^> <C-O><C-^>
 
-< " map Home to jump to first character in line, Ctrl-Home to jump to beginning of line
+" map Home to jump to first character in line, Ctrl-Home to jump to beginning of line
 map <Home> ^
 map <kHome> ^
 imap <Home> <C-O>^
 imap <kHome> <C-O>^
+map <S-Home> 0
 map <C-Home> 0
 map <Esc><Home> 0
-imap <C-Home> <C-O>0
-imap <Esc><Home> <C-O>0
+"imap <S-Home> <C-O>0
+"imap <C-Home> <C-O>0
+"imap <Esc><Home> <C-O>0
 
 " to satisfy stupid SuSE
 "map <Esc>[H ^
