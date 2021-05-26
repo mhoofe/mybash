@@ -3,5 +3,6 @@
 [[ -z "$(type -p pyenv)" ]] && return
 
 # Enable shims and autocompletion
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
