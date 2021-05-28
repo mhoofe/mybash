@@ -1,5 +1,7 @@
 
 # Set customized bash shell options
+shopt -s cdable_vars
+shopt -s direxpand
 shopt -s histappend
 shopt -s nocaseglob
 #shopt -s nocasematch
