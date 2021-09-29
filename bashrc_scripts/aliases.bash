@@ -18,6 +18,7 @@ alias dir='ls -A'
 #alias l.='ls -d .[[:alpha:]]*'
 
 alias cd..='cd ..'
+alias cd-='cd -'
 alias ..='cd ..'
 alias up='cd ..'
 
