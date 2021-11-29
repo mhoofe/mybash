@@ -1,0 +1,3 @@
+#!/bin/sh
+eclipse="${1:-/Applications/Eclipse JEE.app}"
+codesign -v -vvv --deep "${eclipse}"
