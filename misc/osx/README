@@ -35,6 +35,9 @@ defaults write com.google.Chrome ExternalProtocolDialogShowAlwaysOpenCheckbox -b
 # NOTE: Call for current user AND root!
 defaults write com.google.Chrome RemoteAccessHostRequireCurtain -boolean true
 
+# Dont' automatically 'swoosh' to workspace when opening an app
+#defaults write com.apple.Dock workspaces-auto-swoosh -bool NO
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
