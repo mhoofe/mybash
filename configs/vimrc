@@ -6,6 +6,29 @@
 "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+" Load first to override stuff we don't like
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" To install 'Plug':
+" > curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+" To install all plugins:
+" :PlugInstall
+" To update plugins:
+" :PlugUpdate
+" To update Plug itself:
+" :PlugUpgrade
+
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+    call plug#begin('~/.vim/plug')
+
+        Plug 'vim-ruby/vim-ruby'
+
+    call plug#end()
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tweak terminal settings
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,6 +221,45 @@ set whichwrap=b,s
 "set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Now for the syntax highlighting (tm):
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" turn on syntax highlighting
+function SyntaxOn()
+    syntax on
+
+    hi Cursor ctermfg=Black ctermbg=Red
+
+    hi Comment ctermfg=DarkRed guifg=DarkRed
+
+    hi Constant ctermfg=DarkMagenta guifg=DarkMagenta
+    hi Character ctermfg=DarkGreen guifg=DarkGreen
+    hi String ctermfg=DarkGreen guifg=DarkGreen
+
+    hi Identifier ctermfg=Yellow
+    hi Function ctermfg=Brown
+
+    hi Statement ctermfg=DarkBlue guifg=DarkBlue
+    hi Keyword ctermfg=DarkBlue guifg=DarkBlue
+
+    "hi PreProc cterm=italic
+    hi PreProc ctermfg=Cyan
+
+    hi Type ctermfg=Blue guifg=DarkBlue
+    hi Special ctermfg=DarkMagenta guifg=DarkMagenta
+
+    hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
+
+    hi Search term=reverse ctermbg=3
+
+    hi ShowTrailingWhitespaces ctermbg=red guibg=red
+    match ShowTrailingWhitespaces /\s\+$/
+
+endfunction
+call SyntaxOn()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for some more or less useful autocommands:
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -208,7 +270,11 @@ autocmd BufReadPost *.gz '[,']!gunzip
 autocmd BufReadPost *.gz set nobin
 
 " automatically set different indentation for Ruby, Rakefile and Shell
-autocmd BufRead,BufNewFile *.rb,*.sh,*.yml,Rakefile set softtabstop=2 shiftwidth=2
+autocmd BufRead,BufNewFile *.rb,*.sh,*.yaml,*.yml,Rakefile set softtabstop=2 shiftwidth=2
+
+" disable weird indenting for comments
+autocmd BufReadPost,BufNewFile * if &filetype == "python" | set indentkeys-=0# | endif
+autocmd BufReadPost,BufNewFile * if &filetype == "yaml" | set expandtab shiftwidth=2 indentkeys-=0# | endif
 
 " automatically enable linenumbers for C, C++ and java
 "autocmd BufEnter    *.[ch]  set number
@@ -306,65 +372,4 @@ map <F9> :set number!<CR>
 
 " map F11 to toggle syntax highlighting
 map <F11> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>call SyntaxOn()<Bar>endif<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Now for the syntax highlighting (tm):
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" turn on syntax highlighting
-function SyntaxOn()
-    syntax on
-
-    hi Cursor ctermfg=Black ctermbg=Red
-
-    hi Comment ctermfg=DarkRed guifg=DarkRed
-
-    hi Constant ctermfg=DarkMagenta guifg=DarkMagenta
-    hi Character ctermfg=DarkGreen guifg=DarkGreen
-    hi String ctermfg=DarkGreen guifg=DarkGreen
-
-    hi Identifier ctermfg=Yellow
-    hi Function ctermfg=Brown
-
-    hi Statement ctermfg=DarkBlue guifg=DarkBlue
-    hi Keyword ctermfg=DarkBlue guifg=DarkBlue
-
-    "hi PreProc cterm=italic
-    hi PreProc ctermfg=Cyan
-
-    hi Type ctermfg=Blue guifg=DarkBlue
-    hi Special ctermfg=DarkMagenta guifg=DarkMagenta
-
-    hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
-
-    hi Search term=reverse ctermbg=3
-
-    hi ShowTrailingWhitespaces ctermbg=red guibg=red
-    match ShowTrailingWhitespaces /\s\+$/
-
-endfunction
-call SyntaxOn()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Additional stuff
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" To install 'Plug':
-" > curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-" To install all plugins:
-" :PlugInstall
-" To update plugins:
-" :PlugUpdate
-" To update Plug itself:
-" :PlugUpgrade
-
-if filereadable(expand('~/.vim/autoload/plug.vim'))
-    call plug#begin('~/.vim/plug')
-
-        Plug 'vim-ruby/vim-ruby'
-
-    call plug#end()
-endif
 

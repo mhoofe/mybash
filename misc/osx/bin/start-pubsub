@@ -1,4 +1,0 @@
-#!/bin/sh
-export PUBSUB_EMULATOR_HOST="${DOCKER_CLIENT}:8085"
-export PUBSUB_PROJECT_ID="development"
-gcloud beta emulators pubsub start --host-port=${PUBSUB_EMULATOR_HOST}
