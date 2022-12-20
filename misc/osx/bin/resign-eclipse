@@ -1,3 +1,16 @@
-#!/bin/sh
-eclipse="${1:-/Applications/Eclipse JEE.app}"
-sudo codesign --force --sign - "${eclipse}"
+#!/usr/bin/env bash
+
+set -e
+
+eclipse_homes=('/Applications/Eclipse.app' '/Applications/Eclipse JEE.app')
+for eclipse_home in "${eclipse_homes[@]}"; do
+    [ -d "${eclipse_home}" ] && break
+done
+
+if [ -z "${eclipse_home}" -o ! -d "${eclipse_home}" ]; then
+    echo "Eclipse home not found in: ${eclipse_homes[*]}"
+    exit 1
+fi
+
+sudo codesign --force --sign - "${eclipse_home}"
+

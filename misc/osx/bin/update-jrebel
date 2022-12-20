@@ -4,49 +4,36 @@ set -e
 
 jrebel_home="${HOME}/.jrebel"
 if [ ! -d "${jrebel_home}" ]; then
-  echo "JRebel home directory '${jrebel_home}' not found"
-  exit 1
+    echo "JRebel home directory '${jrebel_home}' not found"
+    exit 1
 fi
 
-eclipse_home='/Applications/Eclipse JEE.app/Contents/Eclipse'
-eclipse_plugin_home="${eclipse_home}/plugins"
+eclipse_homes=('/Applications/Eclipse.app' '/Applications/Eclipse JEE.app')
+for eclipse_home in "${eclipse_homes[@]}"; do
+    [ -d "${eclipse_home}" ] && break
+done
+
+if [ -z "${eclipse_home}" -o ! -d "${eclipse_home}" ]; then
+    echo "Eclipse home not found in: ${eclipse_homes[*]}"
+    exit 1
+fi
+
+eclipse_plugin_home="${eclipse_home}/Contents/Eclipse/plugins"
 if [ ! -d "${eclipse_plugin_home}" ]; then
-  echo "Eclipse plugin home directory '${eclipse_plugin_home}' not found"
-  exit 1
+    echo "Eclipse plugin home directory '${eclipse_plugin_home}' not found"
+    exit 1
 fi
 
 jrebel_plugin_glob="*/org.zeroturnaround.eclipse.embedder_*/jrebel"
 jrebel_home_link="${jrebel_home}/_jrebel_"
+
 target="$(find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type d -print0 | sort -z -r | head -z -n1 | tr '\0' '\n')"
 if [ ! -d "${target}" ]; then
-  echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_home}'"
+    echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_home}'"
+    exit 1
 fi
+
 echo "Updating jrebel to ${target}"
 rm -f "${jrebel_home_link}"
 ln -s "${target}" "${jrebel_home_link}"
-
-exit 0
-
-#
-# Old version:
-#
-
-version="${1}"
-if [ -z "$version" ]; then
-  echo "No version specified"
-  exit 1
-fi
-
-jrebel_source="${HOME}/Downloads/jrebel-${version}-nosetup.zip"
-jrebel_target="${HOME}/opt"
-if [ ! -r "$jrebel_source" ]; then
-  echo "JRebel source file '${jrebel_source}' not found"
-  exit 2
-fi
-
-cd "${jrebel_target}"
-rm -f jrebel
-unzip "${jrebel_source}"
-mv jrebel jrebel-${version}
-ln -s jrebel-${version} jrebel
 
