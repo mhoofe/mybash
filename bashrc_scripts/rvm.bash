@@ -1,5 +1,5 @@
 
-# Set vvm home directory
+# Set rvm home directory
 RVM_DIR="${HOME}/.rvm"
 [[ ! -d "$RVM_DIR" ]] && return
 export RVM_DIR
