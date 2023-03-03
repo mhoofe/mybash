@@ -1,5 +1,11 @@
 
 # Check if brew is installed
+if [[ -z "$(type -p brew)" ]]; then
+  if brew_bin="$(findFirstFile "/opt/homebrew/bin/brew" "/usr/local/bin/brew")"; then
+    eval "$("${brew_bin}" shellenv)"
+  fi
+  unset brew_bin
+fi
 [[ -z "$(type -p brew)" ]] && return
 
 brew_prefix="$(brew --prefix)"
