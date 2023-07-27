@@ -58,6 +58,12 @@ elif [[ -s "/etc/bashrc" ]]; then
     source "/etc/bashrc"
 fi
 
+# Add system MANPATH, unless variable is empty
+if [[ -n "$MANPATH" ]]; then
+    removePath MANPATH /usr/share/man
+    appendPath MANPATH /usr/share/man
+fi
+
 MYBASH_LOADED_BASH_PROFILE=1
 export MYBASH_LOADED_BASH_PROFILE
 

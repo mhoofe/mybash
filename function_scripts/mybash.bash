@@ -182,8 +182,11 @@ appendPath() {
     # append only if available
     [ ! -e "$element" ] && return
 
+    # set oldvalue and remove trailing ':' if necessary
+    local oldvalue="$(echo "${!variable%%+(:)}")"
+
     # init new value
-    local newvalue="\${${variable}:+\$${variable}:}${element}"
+    local newvalue="${oldvalue:+${oldvalue}:}${element}"
 
     # assign a new value
     local todo="${variable}=${newvalue}"
@@ -204,8 +207,11 @@ prependPath() {
     # prepend only if available
     [ ! -e "$element" ] && return
 
+    # set oldvalue and leading trailing ':' if necessary
+    local oldvalue="$(echo "${!variable##+(:)}")"
+
     # init new value
-    local newvalue="${element}\${${variable}:+:\$${variable}}"
+    local newvalue="${element}${oldvalue:+:${oldvalue}}"
 
     # assign a new value
     local todo="${variable}=${newvalue}"
@@ -218,7 +224,7 @@ prependPath() {
 #
 removePath() {
 
-    [ $# -ne 2 ] && echo "Usage: prependPath <variable> <element>" && return -1
+    [ $# -ne 2 ] && echo "Usage: removePath <variable> <element>" && return -1
 
     local variable="$1"
     local pattern="$2"
