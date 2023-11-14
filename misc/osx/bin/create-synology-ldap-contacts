@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+az ad group member list --group "Rheinauhafen" --output tsv \
+    --query "sort_by([].{Mail:mail, DisplayName:displayName, GivenName:givenName, Surname:surname}, &Mail)" \
+    | awk -F $'\t' '{ printf "%s\t#\t\t%s\n", $2, $1 }'
