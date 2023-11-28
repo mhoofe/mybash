@@ -38,6 +38,9 @@ defaults write com.google.Chrome RemoteAccessHostRequireCurtain -boolean true
 # Dont' automatically 'swoosh' to workspace when opening an app
 #defaults write com.apple.Dock workspaces-auto-swoosh -bool NO
 
+# Set tooltip delay to 3s - instead of 100ms which is highly annoying
+defaults write -g NSInitialToolTipDelay -int 3000
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
