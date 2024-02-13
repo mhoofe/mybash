@@ -259,6 +259,10 @@ function SyntaxOn()
     hi ShowTrailingWhitespaces ctermbg=red guibg=red
     match ShowTrailingWhitespaces /\s\+$/
 
+    " Prevent auto-indenting for # (Ruby comment) and : (Ruby symbol/hash-key) characters
+    inoremap # #
+    inoremap : :
+
 endfunction
 call SyntaxOn()
 
