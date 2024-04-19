@@ -16,6 +16,11 @@ for gnu_path in "coreutils" "findutils" "gnu-sed" "gnu-tar" "grep"; do
   man_path="${brew_prefix}/opt/${gnu_path}/libexec/gnuman"
   prependPaths "$bin_path" "$man_path"
 done
+for gnu_path in "man-db"; do
+  bin_path="${brew_prefix}/opt/${gnu_path}/libexec/bin"
+  man_path="${brew_prefix}/opt/${gnu_path}/libexec/man"
+  prependPaths "$bin_path" "$man_path"
+done
 unset gnu_path
 
 # Prepend some brew opt packages
