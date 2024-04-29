@@ -380,3 +380,5 @@ map <F9> :set number!<CR>
 " map F11 to toggle syntax highlighting
 map <F11> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>call SyntaxOn()<Bar>endif<CR>
 
+"colorscheme macvim
+colorscheme mybash
