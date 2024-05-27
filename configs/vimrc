@@ -37,7 +37,7 @@ endif
 if $TERM >= "xterm" || $TERM == "kvt" || $TERM == "dtterm"
 
     set t_md=
-    set t_Co=8
+"    set t_Co=8
 
     " set these for newer terminals (konsole,kvt)
 "    set t_kb=
@@ -63,7 +63,7 @@ endif
 if $TERM == "vt220"
 
     set t_md=
-    set t_Co=8
+"    set t_Co=8
 
 "    set t_kb=
 "    set t_kD=
