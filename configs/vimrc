@@ -234,7 +234,11 @@ inoremap : :
 
 " turn on syntax highlighting
 function SyntaxOn()
+
     syntax on
+
+    hi clear
+    let g:colors_name = 'mybash'
 
     hi Cursor ctermfg=Black ctermbg=Red
 
@@ -264,7 +268,7 @@ function SyntaxOn()
     match ShowTrailingWhitespaces /\s\+$/
 
 endfunction
-"call SyntaxOn()
+call SyntaxOn()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for some more or less useful autocommands:
@@ -379,8 +383,4 @@ map <F9> :set number!<CR>
 
 " map F11 to toggle syntax highlighting
 map <F11> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>call SyntaxOn()<Bar>endif<CR>
-
-call SyntaxOn()
-"colorscheme macvim
-"colorscheme mybash
 
