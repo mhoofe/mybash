@@ -223,6 +223,10 @@ set whichwrap=b,s
 " set wrapping off (see mapping)
 "set nowrap
 
+" Prevent auto-indenting for # (Ruby comment) and : (Ruby symbol/hash-key) characters
+inoremap # #
+inoremap : :
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for the syntax highlighting (tm):
 "
@@ -259,12 +263,8 @@ function SyntaxOn()
     hi ShowTrailingWhitespaces ctermbg=red guibg=red
     match ShowTrailingWhitespaces /\s\+$/
 
-    " Prevent auto-indenting for # (Ruby comment) and : (Ruby symbol/hash-key) characters
-    inoremap # #
-    inoremap : :
-
 endfunction
-call SyntaxOn()
+"call SyntaxOn()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for some more or less useful autocommands:
@@ -380,6 +380,7 @@ map <F9> :set number!<CR>
 " map F11 to toggle syntax highlighting
 map <F11> :if has("syntax_items")<Bar>syntax off<Bar>else<Bar>call SyntaxOn()<Bar>endif<CR>
 
+call SyntaxOn()
 "colorscheme macvim
 "colorscheme mybash
 
