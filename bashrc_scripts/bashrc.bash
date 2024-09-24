@@ -1,12 +1,15 @@
 
 # Set customized bash shell options
 shopt -s cdable_vars
-shopt -s direxpand
 shopt -s histappend
 shopt -s nocaseglob
 #shopt -s nocasematch
 shopt -s no_empty_cmd_completion
 #shopt -s nullglob
+
+if [[ $BASH_VERSINFO -ge 5 ]]; then
+shopt -s direxpand
+fi
 
 # Set customized shell variables
 export HISTCONTROL=erasedups

@@ -67,5 +67,8 @@ fi
 MYBASH_LOADED_BASH_PROFILE=1
 export MYBASH_LOADED_BASH_PROFILE
 
+# Disable bash deprecation warning e.g. on macos
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 #echo "END MYBASH 'bash_profile'"
 
