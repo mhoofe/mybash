@@ -12,24 +12,26 @@ eclipse_homes=('/Applications/Eclipse.app' '/Applications/Eclipse JEE.app')
 for eclipse_home in "${eclipse_homes[@]}"; do
     [ -d "${eclipse_home}" ] && break
 done
-
 if [ -z "${eclipse_home}" -o ! -d "${eclipse_home}" ]; then
     echo "Eclipse home not found in: ${eclipse_homes[*]}"
     exit 1
 fi
 
-eclipse_plugin_home="${eclipse_home}/Contents/Eclipse/plugins"
-if [ ! -d "${eclipse_plugin_home}" ]; then
-    echo "Eclipse plugin home directory '${eclipse_plugin_home}' not found"
-    exit 1
-fi
+eclipse_plugin_homes=("${eclipse_home}/Contents/Eclipse/plugins" "${HOME}/.p2/pool/plugins")
+for eclipse_plugin_home in "${eclipse_plugin_homes[@]}"; do
 
-jrebel_plugin_glob="*/org.zeroturnaround.eclipse.embedder_*/jrebel"
-jrebel_home_link="${jrebel_home}/_jrebel_"
+    [ ! -d "${eclipse_plugin_home}" ] && continue
 
-target="$(find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type d -print0 | sort -z -r | head -z -n1 | tr '\0' '\n')"
+    jrebel_plugin_glob="*/org.zeroturnaround.eclipse.embedder_*/jrebel"
+    jrebel_home_link="${jrebel_home}/_jrebel_"
+
+    target="$(find -L "${eclipse_plugin_home}" -ipath "${jrebel_plugin_glob}" -type d -print0 | sort -z -r | head -z -n1 | tr '\0' '\n')"
+    [ -d "${target}" ] && break
+
+done
+
 if [ ! -d "${target}" ]; then
-    echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_home}'"
+    echo "Eclipse jrebel plugin directory not found in '${eclipse_plugin_homes[*]}'"
     exit 1
 fi
 

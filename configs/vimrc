@@ -36,7 +36,7 @@ endif
 " set delete key correctly
 if $TERM >= "xterm" || $TERM == "kvt" || $TERM == "dtterm"
 
-    set t_md=
+"    set t_md=
 "    set t_Co=8
 
     " set these for newer terminals (konsole,kvt)
@@ -62,7 +62,7 @@ endif
 
 if $TERM == "vt220"
 
-    set t_md=
+"    set t_md=
 "    set t_Co=8
 
 "    set t_kb=
@@ -237,27 +237,28 @@ function SyntaxOn()
 
     syntax on
 
+    colorscheme default
     hi clear
-    let g:colors_name = 'mybash'
+"    let g:colors_name = 'mybash'
 
     hi Cursor ctermfg=Black ctermbg=Red
 
-    hi Comment ctermfg=DarkRed guifg=DarkRed
+"    hi Comment cterm=italic gui=italic
+    hi Comment ctermfg=DarkRed guifg=Red
 
     hi Constant ctermfg=DarkMagenta guifg=DarkMagenta
     hi Character ctermfg=DarkGreen guifg=DarkGreen
     hi String ctermfg=DarkGreen guifg=DarkGreen
 
-    hi Identifier ctermfg=Yellow
-    hi Function ctermfg=Brown
+    hi Identifier ctermfg=Yellow guifg=Yellow
+    hi Function ctermfg=Brown guifg=Brown
 
-    hi Statement ctermfg=DarkBlue guifg=DarkBlue
-    hi Keyword ctermfg=DarkBlue guifg=DarkBlue
+    hi Statement ctermfg=LightBlue guifg=LightBlue
+    hi Keyword ctermfg=LightBlue guifg=LightBlue
 
-    "hi PreProc cterm=italic
-    hi PreProc ctermfg=Cyan
+    hi PreProc ctermfg=Cyan guifg=Cyan
 
-    hi Type ctermfg=Blue guifg=DarkBlue
+    hi Type ctermfg=Blue guifg=Blue
     hi Special ctermfg=DarkMagenta guifg=DarkMagenta
 
     hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
