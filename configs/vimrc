@@ -263,7 +263,8 @@ function SyntaxOn()
 
     hi Error ctermfg=White ctermbg=Red guifg=White guibg=Red
 
-    hi Search term=reverse ctermbg=3
+"    hi Search term=reverse ctermbg=3 guibg=Yellow
+    hi Search ctermbg=DarkYellow guibg=DarkYellow
 
     hi ShowTrailingWhitespaces ctermbg=red guibg=red
     match ShowTrailingWhitespaces /\s\+$/
