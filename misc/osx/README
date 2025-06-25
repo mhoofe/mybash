@@ -41,6 +41,9 @@ defaults write com.google.Chrome RemoteAccessHostRequireCurtain -boolean true
 # Set tooltip delay to 3s - instead of 100ms which is highly annoying
 defaults write -g NSInitialToolTipDelay -int 3000
 
+# Disable e.g. DualSense "PS" button opening Games folder
+defaults write com.apple.GameController bluetoothPrefsMenuLongPressAction -integer 0
+
 ### NVRAM/PRAM/SMC
 
 # Disable/enable startup sound
