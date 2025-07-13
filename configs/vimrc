@@ -283,7 +283,7 @@ autocmd BufReadPost *.gz '[,']!gunzip
 autocmd BufReadPost *.gz set nobin
 
 " automatically set different indentation for Ruby, Rakefile and Shell
-autocmd BufRead,BufNewFile *.rb,*.sh,*.yaml,*.yml,Rakefile set softtabstop=2 shiftwidth=2
+autocmd BufRead,BufNewFile *.rb,*.sh,*.zsh,*.yaml,*.yml,Rakefile set softtabstop=2 shiftwidth=2
 
 " disable weird indenting for comments
 autocmd BufReadPost,BufNewFile * if &filetype == "python" | set indentkeys-=0# | endif
