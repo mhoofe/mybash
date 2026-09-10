@@ -56,3 +56,12 @@ nvram -d SystemAudioVolume
 # Many examples for defaults
 https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
+### Install/uninstall local.launchd agent
+
+launchctl load -w ~/Library/LaunchAgents/local.launchd.plist
+launchctl unload -w ~/Library/LaunchAgents/local.launchd.plist
+
+### Manually read launchd.conf
+
+xargs -L 1 launchctl < ~/.launchd.conf
+
