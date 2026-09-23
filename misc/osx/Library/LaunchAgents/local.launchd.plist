@@ -8,7 +8,7 @@
     <array>
         <string>sh</string>
         <string>-c</string>
-        <string>xargs -L 1 launchctl &lt; ~/.launchd.conf</string>
+        <string>~/.launchd.conf</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
