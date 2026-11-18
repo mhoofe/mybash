@@ -87,7 +87,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " normal indenting
-"set autoindent
+set autoindent
 
 " automatically write changes
 set autowrite
@@ -96,12 +96,7 @@ set autowrite
 set backspace=2
 
 " enable C program indenting
-set cindent
-
-" some nice cryptic settings about c-indenting
-" set cinoptions=g.5sh.5s:.5st0(0
-"set cinoptions=t0(0
-"set cinoptions+=L0
+"set cindent
 
 " use the system's clipboard for yank, put and delete and selections
 set clipboard=autoselect,unnamed
@@ -188,7 +183,7 @@ set sidescroll=10
 set smartcase
 
 " smarter indenting (detects ´{´ and some keywords)
-set smartindent
+"set smartindent
 
 " in front of a line <Tab> inserts ´shiftwidth´ positions
 set smarttab
@@ -222,10 +217,6 @@ set whichwrap=b,s
 
 " set wrapping off (see mapping)
 "set nowrap
-
-" Prevent auto-indenting for # (Ruby comment) and : (Ruby symbol/hash-key) characters
-inoremap # #
-inoremap : :
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Now for the syntax highlighting (tm):
@@ -283,11 +274,16 @@ autocmd BufReadPost *.gz '[,']!gunzip
 autocmd BufReadPost *.gz set nobin
 
 " automatically set different indentation for Ruby, Rakefile and Shell
-autocmd BufRead,BufNewFile *.rb,*.sh,*.txt,*.zsh,*.yaml,*.yml,Rakefile set softtabstop=2 shiftwidth=2
+autocmd BufRead,BufNewFile *.rb,*.sh,*.txt,*.zsh,*.yaml,*.yml,Rakefile setlocal softtabstop=2 shiftwidth=2
 
-" disable weird indenting for comments
-autocmd BufReadPost,BufNewFile * if &filetype == "python" | set indentkeys-=0# | endif
-autocmd BufReadPost,BufNewFile * if &filetype == "yaml" | set expandtab shiftwidth=2 indentkeys-=0# | endif
+" enable cindent or smart indenting by type
+"autocmd BufReadPost,BufNewFile * if &filetype == "c" | setlocal cindent | endif
+"autocmd BufReadPost,BufNewFile * if &filetype == "cpp" | setlocal cindent | endif
+"autocmd BufReadPost,BufNewFile * if &filetype == "java" | setlocal cindent | endif
+"autocmd BufReadPost,BufNewFile * if &filetype == "yaml" | setlocal expandtab | endif
+
+" enable filetype dependent indenting
+filetype plugin indent on
 
 " automatically enable linenumbers for C, C++ and java
 "autocmd BufEnter    *.[ch]  set number
